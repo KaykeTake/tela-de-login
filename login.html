@@ -16,6 +16,31 @@
             align-items: center;
             width: 100%;
             height: 100%;
+            background-color: #3AC9FE;
+            position: relative;
+        }
+        .objeto {
+            position: absolute;
+            left: 50%; /* Centralize o objeto horizontalmente */
+            transform: translateX(-50%); /* Centralize o objeto horizontalmente */
+        }
+        .objeto img{
+            width: 50px;
+            height: 50px;
+        }
+        @keyframes rotateAnimation {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(180deg); /* Gire 180 graus a meio caminho */
+            }
+            100% {
+                transform: rotate(360deg); /* Gire 360 graus no final */
+            }
+        }
+        .rotating-image {
+            animation: rotateAnimation 2s linear infinite; /* 5 segundos de duração e repetição infinita */
         }
         .tela {
             display: flex;
@@ -29,6 +54,7 @@
             background-color: #FBDDFF;
             width: 400px;
             height: 200px;
+            border-radius: 5%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -47,23 +73,31 @@
         .boxus {
             margin: auto;
         }
-        .usuario, .senha {
+        .usuario, .senha, .confimar_senha {
             font-family: 'Black Ops One';
             font-size: small;
-        }
-        .senha {
             margin-top: 5%;
         }
         .botao button {
-            margin-top: 20px;
+            margin-top: 10px;
             cursor: pointer;
             border-radius: 0;
             background-color: black;
             color: white;
             font-family: 'Black Ops One';
         }
-        .alternar{
-            margin-left: 10px;
+        #alternar-login, #alternar-register{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            border-radius: 10%;
+            border: none;
+            background-color: #796A7A;
+            font-family: 'Black Ops One';
+            color: #FBDDFF;
+            font-size: 9px;
+            width: 55px;
+            height: 25px;
         }
     </style>
     <script>
@@ -84,40 +118,79 @@
             })
         }
     </script>
+        <script>
+            // Função para mover o objeto de baixo para cima
+            function moveObjeto() {
+                const objeto = document.querySelector(".objeto");
+                let position = 550; // Comece na parte inferior da tela
+                let position_left = Math.random();
+
+                // Função de animação
+                function animate() {
+                    position -= 5; // Move o objeto para cima
+                    objeto.style.top = position + "px";
+    
+                    // Verifica se o objeto atingiu o topo do container
+                    if (position > -50) {
+                        requestAnimationFrame(animate); // Continua a animação
+                    } else {
+                        // Reinicia a posição do objeto na parte inferior do container
+                        position = 540;
+                        objeto.style.top = position + "px";
+                        position_left = Math.random() * (window.innerWidth - 50);
+                        objeto.style.left = position_left + "px";
+                        requestAnimationFrame(animate); // Continua a animação
+                    }
+                }
+    
+                // Inicia a animação
+                animate();
+            }
+    
+            // Chama a função para iniciar a animação quando o documento estiver pronto
+            document.addEventListener("DOMContentLoaded", function () {
+                moveObjeto();
+            });
+        </script>
 </head>
 <body>
     <div class="container">
+        <div class="objeto"><img class="rotating-image" src="image\dog.png"></div>
         <div class="tela">
             <div class="TelaLogin">
-                <button id="alternar" onclick="toggleScreen();">Alternar</button>
+                <button id="alternar-login" onclick="toggleScreen();">Register</button>
                 <form action="#" onsubmit="return verificacao(this)">
                     <div class="boxus">
                         <div class="usuario">
-                            <label>Usuario:</label>
+                            <label>Username:</label>
                             <div class="email"><input type="email" id="email" name="email" required></div>
                         </div>
                         <div class="senha">
-                            <label>Senha:</label>
+                            <label>Password:</label>
                             <div class="senha1"><input type="password" id="senha" name="senha" required></div>
                         </div>
                     </div>
-                    <div class="botao"><button>Enviar</button></div>
+                    <div class="botao"><button>Login</button></div>
                 </form>
             </div>
             <div class="TelaRegister">
-                <button id="alternar" onclick="toggleScreen();">Alternar</button>
+                <button id="alternar-register" onclick="toggleScreen();">Login</button>
                 <form action="#" onsubmit="return verificacao(this)">
                     <div class="boxus">
                         <div class="usuario">
-                            <label>Usua:</label>
+                            <label>Username:</label>
                             <div class="email"><input type="email" id="email" name="email" required></div>
                         </div>
                         <div class="senha">
-                            <label>Senha:</label>
+                            <label>Password:</label>
                             <div class="senha1"><input type="password" id="senha" name="senha" required></div>
                         </div>
+                        <div class="confimar_senha">
+                            <label>Confirm Password:</label>
+                            <div class="senha2"><input type="password" id="senha" name="senha" required></div>
+                        </div>
                     </div>
-                    <div class="botao"><button>Enviar</button></div>
+                    <div class="botao"><button>Register</button></div>
                 </form>
             </div>
         </div>
