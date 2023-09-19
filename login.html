@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Black Ops One">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        .tela {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .rotated .TelaLogin {
+            transform: rotateY(180deg);
+        }
+        .TelaLogin, .TelaRegister {
+            background-color: #FBDDFF;
+            width: 400px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 14px 6px 0px #796A7A;
+            backface-visibility: hidden;
+            transition: transform 1s;
+        }
+        .TelaLogin{
+            position: absolute;
+            transform: rotateY(180deg);
+        }
+        .TelaRegister{
+            position: relative;
+        }
+        .boxus {
+            margin: auto;
+        }
+        .usuario, .senha {
+            font-family: 'Black Ops One';
+            font-size: small;
+        }
+        .senha {
+            margin-top: 5%;
+        }
+        .botao button {
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 0;
+            background-color: black;
+            color: white;
+            font-family: 'Black Ops One';
+        }
+        .alternar{
+            margin-left: 10px;
+        }
+    </style>
+    <script>
+        let isLogin = true;
+
+        function toggleScreen() {
+            isLogin = !isLogin;
+            const telaLogin = document.querySelector(".TelaLogin");
+            const telaRegister = document.querySelector(".TelaRegister");
+            window.requestAnimationFrame(()=>{
+                if (isLogin) {
+                telaLogin.style.transform = "rotateY(180deg)";
+                telaRegister.style.transform = "rotateY(0deg)";
+                } else {
+                telaLogin.style.transform = "rotateY(0deg)";
+                telaRegister.style.transform = "rotateY(180deg)";
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="tela">
+            <div class="TelaLogin">
+                <button id="alternar" onclick="toggleScreen();">Alternar</button>
+                <form action="#" onsubmit="return verificacao(this)">
+                    <div class="boxus">
+                        <div class="usuario">
+                            <label>Usuario:</label>
+                            <div class="email"><input type="email" id="email" name="email" required></div>
+                        </div>
+                        <div class="senha">
+                            <label>Senha:</label>
+                            <div class="senha1"><input type="password" id="senha" name="senha" required></div>
+                        </div>
+                    </div>
+                    <div class="botao"><button>Enviar</button></div>
+                </form>
+            </div>
+            <div class="TelaRegister">
+                <button id="alternar" onclick="toggleScreen();">Alternar</button>
+                <form action="#" onsubmit="return verificacao(this)">
+                    <div class="boxus">
+                        <div class="usuario">
+                            <label>Usua:</label>
+                            <div class="email"><input type="email" id="email" name="email" required></div>
+                        </div>
+                        <div class="senha">
+                            <label>Senha:</label>
+                            <div class="senha1"><input type="password" id="senha" name="senha" required></div>
+                        </div>
+                    </div>
+                    <div class="botao"><button>Enviar</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
